@@ -1,0 +1,20 @@
+(define (my-last-pair list)
+  (if (null? (cdr list))
+      (car list)
+      (my-last-pair (cdr list))))
+
+(define (my-reverse lst)
+  (if (null? lst)
+      '()
+      (append (my-reverse (cdr lst)) (list (car lst)))))
+
+(define (my-filter f lst)
+  (cond ((empty? lst) '())
+        ((f (car lst))
+         (append (list (car lst)) (my-filter f (cdr lst))))
+        (else (my-filter f (cdr lst)))))
+
+(define (same-parity x . w)
+  (if (odd? x)
+      (my-filter odd? w)
+      (my-filter even? w)))

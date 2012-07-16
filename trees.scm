@@ -1,0 +1,23 @@
+(define (count-leaves x)
+  (cond ((null? x) 0)
+        ((not (pair? x)) 1)
+        (else (+ (count-leaves (car x))
+                 (count-leaves (cdr x))))))
+
+(define (fringe x)
+  (cond ((null? x) null)
+        ((not (pair? x)) (list x))
+        (else (append (fringe (car x))
+                      (fringe (cdr x))))))
+
+(define (tree-map f tree)
+  (cond ((null? tree) null)
+        ((not (pair? tree)) (f tree))
+        (else (cons (tree-map f (car tree))
+                    (tree-map f (cdr tree))))))
+
+(define (accumulate op initial tree)
+  (cond ((null? tree) initial)
+        ((not (pair? tree)) tree)
+        (else (op (accumualte op initial (car tree))
+                  (accumualte op initial (cdr tree))))))
